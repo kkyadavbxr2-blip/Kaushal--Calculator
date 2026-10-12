@@ -1,0 +1,30 @@
+
+name: Build Kaushal Calculator APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "main.py"
+      - ".github/workflows/build.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build APK
+        uses: digreatbrian/buildozer-action@v2
+        with:
+          buildozer_version: stable
+          python_version: "3.11"
+          command: buildozer android debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: KaushalCalculator
+          path: bin/*.apk
+          
