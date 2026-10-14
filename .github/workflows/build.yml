@@ -1,30 +1,30 @@
 name: Build Kaushal Calculator APK
 
 "on":
-workflow_dispatch:
-push:
-paths:
-- "main.py"
-- "buildozer.spec"
-- ".github/workflows/build.yml"
+  workflow_dispatch:
+  push:
+    paths:
+      - "main.py"
+      - "buildozer.spec"
+      - ".github/workflows/build.yml"
 
 jobs:
-build:
-runs-on: ubuntu-22.04
+  build:
+    runs-on: ubuntu-22.04
 
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  - name: Build APK
-    uses: digreatbrian/buildozer-action@v2
-    with:
-      python-version: "3.8"
-      buildozer-cmd: buildozer -v android debug
+      - name: Build APK
+        uses: digreatbrian/buildozer-action@v2
+        with:
+          python-version: "3.8"
+          buildozer-cmd: buildozer -v android debug
 
-  - name: Upload APK
-    uses: actions/upload-artifact@v4
-    with:
-      name: KaushalCalculator
-      path: bin/*.apk
-      if-no-files-found: error
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: KaushalCalculator
+          path: bin/*.apk
+          if-no-files-found: error
